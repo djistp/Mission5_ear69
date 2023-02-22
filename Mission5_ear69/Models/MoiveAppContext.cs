@@ -15,14 +15,27 @@ namespace Mission5_ear69.Models
 
         }
         public DbSet <MovieResponse> Responses { get; set; }
+        public DbSet <Category> Categories { get; set; }
+        //seeding data
 
         protected override void OnModelCreating(ModelBuilder mb)
         {
+
+            mb.Entity<Category>().HasData(
+                new Category { CategoryId=1, CategoryName= "Action/Adventure" },
+                new Category { CategoryId = 2, CategoryName = "Comedy" },
+                new Category { CategoryId = 3, CategoryName = "Drama" },
+                new Category { CategoryId = 4, CategoryName = "Family" },
+                new Category { CategoryId = 5, CategoryName = "Horror/Suspense" },
+                new Category { CategoryId = 6, CategoryName = "Television" }
+                );
+
+
             mb.Entity<MovieResponse>().HasData(
             new MovieResponse
             { 
                 MovieId = 1,
-                Category="Comedy",
+                CategoryId=2,
                 Title="This is the End",
                 Year=2013,
                 Director="Seth Rogen/EvenGoldberg",
@@ -34,7 +47,7 @@ namespace Mission5_ear69.Models
              new MovieResponse
              {
                  MovieId = 2,
-                 Category = "Drama",
+                 CategoryId = 3,
                  Title = "LightHouse",
                  Year = 2019,
                  Director = "Robert Eggers",
@@ -46,7 +59,7 @@ namespace Mission5_ear69.Models
               new MovieResponse
               {
                   MovieId = 3,
-                  Category = "Drama",
+                  CategoryId = 3,
                   Title = "Everything Everywhere All At Once",
                   Year = 2022,
                   Director = "Daniel Brothers",

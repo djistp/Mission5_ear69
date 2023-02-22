@@ -9,14 +9,12 @@
 <div>
     @*this is the form where the user inputs their data*@
     <form method="post">
-        <label asp-for="Category">Category</label>
-        <select asp-for="Category">
-            <option value="Action/Adventure">Action/Adventure</option>
-            <option value="Comedy">Comedy</option>
-            <option value="Drama">Drama</option>
-            <option value="Family">Family</option>
-            <option value="Horror/Suspense">Horror/Suspense</option>
-            <option value="Television">Television</option>
+        <label asp-for="CategoryId">Category</label>
+        <select asp-for="CategoryId">
+            @foreach (Category c in ViewBag.Categories)
+            {
+                <option value="@c.CategoryId">@c.CategoryName</option>
+            }
         </select> <br />
         <label asp-for="Title">Movie Title</label>
         <input asp-for="Title" /> <br />

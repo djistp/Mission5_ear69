@@ -15,15 +15,61 @@ namespace Mission5_ear69.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.17");
 
+            modelBuilder.Entity("Mission5_ear69.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = 1,
+                            CategoryName = "Action/Adventure"
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            CategoryName = "Comedy"
+                        },
+                        new
+                        {
+                            CategoryId = 3,
+                            CategoryName = "Drama"
+                        },
+                        new
+                        {
+                            CategoryId = 4,
+                            CategoryName = "Family"
+                        },
+                        new
+                        {
+                            CategoryId = 5,
+                            CategoryName = "Horror/Suspense"
+                        },
+                        new
+                        {
+                            CategoryId = 6,
+                            CategoryName = "Television"
+                        });
+                });
+
             modelBuilder.Entity("Mission5_ear69.Models.MovieResponse", b =>
                 {
                     b.Property<int>("MovieId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Director")
                         .IsRequired()
@@ -52,13 +98,15 @@ namespace Mission5_ear69.Migrations
 
                     b.HasKey("MovieId");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Responses");
 
                     b.HasData(
                         new
                         {
                             MovieId = 1,
-                            Category = "Comedy",
+                            CategoryId = 2,
                             Director = "Seth Rogen/EvenGoldberg",
                             Edit = false,
                             Lent = "no",
@@ -70,7 +118,7 @@ namespace Mission5_ear69.Migrations
                         new
                         {
                             MovieId = 2,
-                            Category = "Drama",
+                            CategoryId = 3,
                             Director = "Robert Eggers",
                             Edit = false,
                             Lent = "no",
@@ -82,7 +130,7 @@ namespace Mission5_ear69.Migrations
                         new
                         {
                             MovieId = 3,
-                            Category = "Drama",
+                            CategoryId = 3,
                             Director = "Daniel Brothers",
                             Edit = false,
                             Lent = "no",
@@ -91,6 +139,17 @@ namespace Mission5_ear69.Migrations
                             Title = "Everything Everywhere All At Once",
                             Year = 2022
                         });
+                });
+
+            modelBuilder.Entity("Mission5_ear69.Models.MovieResponse", b =>
+                {
+                    b.HasOne("Mission5_ear69.Models.Category", "CategoryName")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CategoryName");
                 });
 #pragma warning restore 612, 618
         }
